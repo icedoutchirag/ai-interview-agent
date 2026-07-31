@@ -11,8 +11,10 @@ import paymentRouter from "./routes/payment.route.js"
 
 const app = express()
 app.use(cors({
-    origin: [process.env.CLIENT_URL, "http://localhost:5173"].filter(Boolean),
-    credentials:true
+    origin: (origin, callback) => {
+        callback(null, origin || true)
+    },
+    credentials: true
 }))
 
 app.use(express.json())
